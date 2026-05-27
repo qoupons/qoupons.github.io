@@ -49,7 +49,7 @@ function renderCouponCard(c) {
         ${c.expiryDate ? `<span>Expires ${new Date(c.expiryDate).toLocaleDateString()}</span>` : ''}
         <span>${c.clicks || 0} uses</span>
       </div>
-      <div class="coupon-code-wrap" onclick="copyCode('${c.code}', this.querySelector('.copy-btn'))" data-coupon-id="${c.code}">
+      <div class="coupon-code-wrap" onclick="copyCode('${c.code}', this.querySelector('.copy-btn'))" data-coupon-id="${c._id}">
         <span class="coupon-code">${c.code}</span>
         <button class="copy-btn">Copy</button>
       </div>
@@ -72,11 +72,11 @@ async function loadCoupons(gridId = 'couponGrid', params = {}) {
     grid.innerHTML = data.coupons.map(renderCouponCard).join('');
 
     data.coupons.forEach(c => {
-      const wrap = grid.querySelector(`[data-coupon-id="${c.code}"]`);
+      const wrap = grid.querySelector(`[data-coupon-id="${c._id}"]`);
       if (wrap) {
         wrap.addEventListener('click', () => {
-          CouponAPI.click(c.code).catch(() => {});
-          AnalyticsAPI.track({ type: 'click', couponId: c.code }).catch(() => {});
+          CouponAPI.click(c._id).catch(() => {});
+          AnalyticsAPI.track({ type: 'click', couponId: c._id }).catch(() => {});
         });
       }
     });

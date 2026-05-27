@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Hit = require('../models/Hit');
+const Coupon = require('../models/Coupon');
 const { verifyToken } = require('../middleware/auth');
-const vf = require('../config/voucherify');
 
 router.post('/track', async (req, res) => {
   const { type, couponId, page } = req.body;
@@ -22,31 +22,21 @@ router.get('/stats', verifyToken, async (req, res) => {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  const [totalViews, totalClicks, totalSubmissions, todayViews, topClickData] = await Promise.all([
+  const [totalViews, totalClicks, totalSubmissions, todayViews, topCoupons] = await Promise.all([
     Hit.countDocuments({ type: 'pageview' }),
     Hit.countDocuments({ type: 'click' }),
     Hit.countDocuments({ type: 'submission' }),
     Hit.countDocuments({ type: 'pageview', createdAt: { $gte: today } }),
-    Hit.aggregate([
-      { $match: { type: 'click' } },
-      { $group: { _id: '$couponId', clicks: { $sum: 1 } } },
-      { $sort: { clicks: -1 } },
-      { $limit: 10 },
-    ]),
+    Coupon.find().sort({ clicks: -1 }).limit(10).select('store discount clicks views')
   ]);
 
-  const topCoupons = await Promise.all(
-    topClickData.map(async (item) => {
-      try {
-        const v = await vf.vouchers.getVoucher(item._id);
-        return { store: v.metadata?.store || v.campaign || item._id, discount: '', clicks: item.clicks, views: v.metadata?.views || 0 };
-      } catch {
-        return { store: item._id, discount: '', clicks: item.clicks, views: 0 };
-      }
-    })
-  );
-
-  res.json({ totalViews, totalClicks, totalSubmissions, todayViews, topCoupons });
+  res.json({
+    totalViews,
+    totalClicks,
+    totalSubmissions,
+    todayViews,
+    topCoupons
+  });
 });
 
 router.get('/daily', verifyToken, async (req, res) => {
