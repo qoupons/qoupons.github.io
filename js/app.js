@@ -1,12 +1,3 @@
-// ─── Ad placeholders (swap in real ad network code) ───
-const AD_NETWORK = {
-  leaderboard: `<div class="ad-block ad-leaderboard">Ad — Leaderboard 728×90</div>`,
-  sidebar: `<div class="ad-block ad-sidebar">Ad — Skyscraper 300×600</div>`,
-  native: `<div class="ad-block ad-native">Ad — In-Feed Native</div>`,
-  sticky: `<div class="ad-block ad-sticky">Ad — Sticky Footer</div>`,
-  interstitial: `<div class="ad-block" style="width:300px;height:250px;margin:16px auto;">Ad — Interstitial 300×250</div>`
-};
-
 // ─── Toast ───
 function showToast(msg) {
   let toast = document.getElementById('toast');
