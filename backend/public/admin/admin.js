@@ -111,6 +111,7 @@ function showCouponForm() {
   document.getElementById('couponFormTitle').textContent = 'Add Coupon';
   document.getElementById('editId').value = '';
   document.getElementById('couponForm').reset();
+  document.getElementById('cf_code').readOnly = false;
   document.getElementById('couponFormModal').style.display = 'flex';
 }
 
@@ -123,6 +124,7 @@ function editCoupon(c) {
   document.getElementById('editId').value = c._id;
   document.getElementById('cf_store').value = c.store || '';
   document.getElementById('cf_code').value = c.code || '';
+  document.getElementById('cf_code').readOnly = true;
   document.getElementById('cf_discount').value = c.discount || '';
   document.getElementById('cf_category').value = c.category || '';
   document.getElementById('cf_url').value = c.url || '';
