@@ -6,7 +6,7 @@ const { loginLimiter } = require('../middleware/rateLimiter');
 const verifyTurnstile = require('../middleware/verifyTurnstile');
 const path = require('path');
 
-router.post('/login', loginLimiter, verifyTurnstile, async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password required' });
