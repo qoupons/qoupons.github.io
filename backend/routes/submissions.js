@@ -3,8 +3,9 @@ const router = express.Router();
 const Coupon = require('../models/Coupon');
 const sanitizeBody = require('../middleware/sanitize');
 const { verifyToken } = require('../middleware/auth');
+const verifyTurnstile = require('../middleware/verifyTurnstile');
 
-router.post('/', sanitizeBody, async (req, res) => {
+router.post('/', verifyTurnstile, sanitizeBody, async (req, res) => {
   const { store, code, discount, description, category, url, expiryDate } = req.body;
   if (!store || !code || !discount) {
     return res.status(400).json({ error: 'Store, code, and discount are required' });

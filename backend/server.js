@@ -22,12 +22,13 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://challenges.cloudflare.com"],
       scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https://cdn.jsdelivr.net"],
-      fontSrc: ["'self'"]
+      connectSrc: ["'self'", "https://cdn.jsdelivr.net", "https://challenges.cloudflare.com"],
+      fontSrc: ["'self'"],
+      frameSrc: ["'self'", "https://challenges.cloudflare.com"]
     }
   }
 }));

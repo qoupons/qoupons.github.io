@@ -8,6 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a7c7a'/><text x='16' y='22' font-size='18' font-weight='bold' fill='white' text-anchor='middle' font-family='sans-serif'>Q</text></svg>">
   <title>Admin — QOUPON</title>
   <link rel="stylesheet" href="/admin/admin.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
   <div id="loginScreen" class="login-screen">
@@ -19,9 +20,12 @@
           <label>Email</label>
           <input type="email" id="loginEmail" required>
         </div>
-        <div class="form-group">
+          <div class="form-group">
           <label>Password</label>
           <input type="password" id="loginPassword" required>
+        </div>
+        <div class="form-group">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADXSaGXF8iK6GVAA"></div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
       </form>

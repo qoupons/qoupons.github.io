@@ -14,6 +14,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a7c7a'/><text x='16' y='22' font-size='18' font-weight='bold' fill='white' text-anchor='middle' font-family='sans-serif'>Q</text></svg>">
   <title>Submit a Coupon — QOUPON</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -66,6 +67,9 @@
           <label for="desc">Description</label>
           <textarea id="desc" rows="3" placeholder="Terms and conditions..."></textarea>
         </div>
+        <div class="form-group">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADXSaGXF8iK6GVAA"></div>
+        </div>
         <button type="submit" class="btn btn-primary btn-block">Submit for Review</button>
       </form>
     </div>
@@ -99,7 +103,8 @@
         category: document.getElementById('category').value || undefined,
         url: document.getElementById('url').value || undefined,
         expiryDate: document.getElementById('expiry').value || undefined,
-        description: document.getElementById('desc').value || undefined
+        description: document.getElementById('desc').value || undefined,
+        turnstileToken: turnstile.getResponse()
       });
       success.textContent = 'Coupon submitted! It will appear after review.';
       success.style.display = 'block';

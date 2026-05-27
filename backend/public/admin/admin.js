@@ -25,7 +25,8 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       credentials: 'include',
       body: JSON.stringify({
         email: document.getElementById('loginEmail').value,
-        password: document.getElementById('loginPassword').value
+        password: document.getElementById('loginPassword').value,
+        turnstileToken: turnstile.getResponse()
       })
     });
     const data = await res.json();
